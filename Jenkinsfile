@@ -15,6 +15,15 @@ pipeline {
                 git branch: 'develop', url: 'https://github.com/Shopping-App-Services/payment-service.git'
             }
         }
+               stage('Dependencies'){
+            steps{
+                nodejs('nodejs') {
+                    sh 'apt-get install -y build-essential'
+                    sh 'npm install @grpc/grpc-js'
+                sh 'npm install'
+            }
+            }
+        }
         
         stage('SonarQube Analysis') {
             steps {
@@ -38,14 +47,6 @@ pipeline {
                 script {
                     waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
                 }
-            }
-        }
-       stage('Dependencies'){
-            steps{
-                nodejs('nodejs') {
-                    sh 'npm install @grpc/grpc-js'
-                sh 'npm install'
-            }
             }
         }
 
