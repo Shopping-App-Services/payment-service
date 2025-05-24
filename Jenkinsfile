@@ -18,9 +18,8 @@ pipeline {
                stage('Dependencies'){
             steps{
                 nodejs('nodejs') {
-                    sh 'sudo apt-get install -y build-essential'
                     sh 'npm install @grpc/grpc-js'
-                sh 'npm install'
+                    sh 'npm install'
             }
             }
         }
